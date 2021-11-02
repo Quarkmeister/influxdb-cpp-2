@@ -64,7 +64,7 @@ namespace influxdb_cpp {
             in_addr * address = (in_addr * )record->h_addr;
             std::string ip_address = inet_ntoa(* address);
 
-            printf("Resolved IP address from hostname: %s.\n", ip_address.c_str());
+            //printf("Resolved IP address from hostname: %s.\n", ip_address.c_str());
 
             host_ = ip_address;
         }
@@ -111,7 +111,7 @@ namespace influxdb_cpp {
             return (detail::tag_caller&)*this;
         }
         detail::field_caller& _f_s(char delim, const std::string& k, const std::string& v) {
-            std::cout << "KV: " << k << " " << v << std::endl;
+            //std::cout << "KV: " << k << " " << v << std::endl;
             lines_ << delim;
             lines_ << std::fixed;
             _escape(k, ",= ");
@@ -234,10 +234,10 @@ namespace influxdb_cpp {
                     method, uri, si.org_.c_str(), si.bkt_.c_str(),
                     querystring.c_str(), si.host_.c_str(), si.tkn_.c_str(), (int)body.length());
 
-                    std::cout << printf(&header[0], len,
-                    "%s /api/v2/%s?org=%s&bucket=%s%s HTTP/1.1\r\nHost: %s\r\nAuthorization:Token %s\r\nContent-Length: %d\r\n\r\n",
-                    method, uri, si.org_.c_str(), si.bkt_.c_str(),
-                    querystring.c_str(), si.host_.c_str(), si.tkn_.c_str(), (int)body.length()) << std::endl;
+                    // std::cout << printf(&header[0], len,
+                    // "%s /api/v2/%s?org=%s&bucket=%s%s HTTP/1.1\r\nHost: %s\r\nAuthorization:Token %s\r\nContent-Length: %d\r\n\r\n",
+                    // method, uri, si.org_.c_str(), si.bkt_.c_str(),
+                    // querystring.c_str(), si.host_.c_str(), si.tkn_.c_str(), (int)body.length()) << std::endl;
                 if((int)iv[0].iov_len >= len)
                     header.resize(len *= 2);
                 else
@@ -246,7 +246,7 @@ namespace influxdb_cpp {
             iv[0].iov_base = &header[0];
             iv[1].iov_base = (void*)&body[0];
             iv[1].iov_len = body.length();
-            std::cout << body << std::endl;
+            //std::cout << body << std::endl;
 
             if(writev(sock, iv, 2) < (int)(iv[0].iov_len + iv[1].iov_len)) {
                 ret_code = -6;
